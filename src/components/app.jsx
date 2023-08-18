@@ -1,36 +1,24 @@
 import React from 'react';
 import {
-  BrowserRouter, Routes, Route, NavLink, useParams,
+  BrowserRouter, Routes, Route, NavLink,
 } from 'react-router-dom';
-import Counter from './counter';
-import Controls from './controls';
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { faHouseLaptop } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import Home from './home';
+
+library.add(faHouseLaptop);
 
 function App(props) {
   return (
     <BrowserRouter>
-      <div>
+      <div id="nav-bar">
         <Nav />
         <Routes>
-          <Route path="/" element={<Welcome />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/test/:id" element={<Test />} />
-          <Route path="*" element={<FallBack />} />
+          <Route path="/" element={<Home />} />
         </Routes>
       </div>
     </BrowserRouter>
-  );
-}
-
-function About(props) {
-  return <div> All there is to know about me </div>;
-}
-
-function Welcome(props) {
-  return (
-    <div>
-      <Counter />
-      <Controls />
-    </div>
   );
 }
 
@@ -38,22 +26,17 @@ function Nav(props) {
   return (
     <nav>
       <ul>
-        <li><NavLink to="/">Home</NavLink></li>
-        <li><NavLink to="/about">About</NavLink></li>
-        <li><NavLink to="/test/id1">test id1</NavLink></li>
-        <li><NavLink to="/test/id2">test id2</NavLink></li>
+        <div>
+          <li><NavLink to="/"><FontAwesomeIcon id="home-icon" icon="house-laptop" /></NavLink></li>
+        </div>
+        <div id="non-home-nav">
+          <li><NavLink to="/analytics">Analytics</NavLink></li>
+          <li><NavLink to="/query">Make a Query</NavLink></li>
+          <li><NavLink to="/about">About</NavLink></li>
+        </div>
       </ul>
     </nav>
   );
-}
-
-function Test(props) {
-  const { id } = useParams();
-  return <div> ID: {id} </div>;
-}
-
-function FallBack(props) {
-  return <div>URL Not Found</div>;
 }
 
 export default App;
